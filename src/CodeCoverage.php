@@ -161,7 +161,17 @@ class PHP_CodeCoverage
             $this->applyListsFilter($this->data);
         }
 
-        return $this->data;
+        $data = [];
+        if ($restoreCallback = \PHPUnit_Util_Fileloader::getFilenameRestoreCallback()) {
+            foreach ($this->data as $file => $lines) {
+                $file = $restoreCallback($file);
+                $data[$file] = $lines;
+            }
+        } else {
+            $data = $this->data;
+        }
+
+        return $data;
     }
 
     /**

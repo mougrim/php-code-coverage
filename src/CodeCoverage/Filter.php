@@ -53,6 +53,9 @@ class PHP_CodeCoverage_Filter
      */
     public function addFileToBlacklist($filename)
     {
+        if ($rewriteCallback = \PHPUnit_Util_Fileloader::getFilenameRewriteCallback()) {
+            $filename = $rewriteCallback($filename);
+        }
         $this->blacklistedFiles[realpath($filename)] = true;
     }
 
@@ -92,6 +95,9 @@ class PHP_CodeCoverage_Filter
      */
     public function removeFileFromBlacklist($filename)
     {
+        if ($rewriteCallback = \PHPUnit_Util_Fileloader::getFilenameRewriteCallback()) {
+            $filename = $rewriteCallback($filename);
+        }
         $filename = realpath($filename);
 
         if (isset($this->blacklistedFiles[$filename])) {
@@ -123,6 +129,9 @@ class PHP_CodeCoverage_Filter
      */
     public function addFileToWhitelist($filename)
     {
+        if ($rewriteCallback = \PHPUnit_Util_Fileloader::getFilenameRewriteCallback()) {
+            $filename = $rewriteCallback($filename);
+        }
         $this->whitelistedFiles[realpath($filename)] = true;
     }
 
@@ -162,6 +171,9 @@ class PHP_CodeCoverage_Filter
      */
     public function removeFileFromWhitelist($filename)
     {
+        if ($rewriteCallback = \PHPUnit_Util_Fileloader::getFilenameRewriteCallback()) {
+            $filename = $rewriteCallback($filename);
+        }
         $filename = realpath($filename);
 
         if (isset($this->whitelistedFiles[$filename])) {
