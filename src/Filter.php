@@ -46,6 +46,9 @@ class Filter
      */
     public function addFileToWhitelist($filename)
     {
+        if ($rewriteCallback = \PHPUnit_Util_Fileloader::getFilenameRewriteCallback()) {
+            $filename = $rewriteCallback($filename);
+        }
         $this->whitelistedFiles[realpath($filename)] = true;
     }
 
@@ -85,6 +88,9 @@ class Filter
      */
     public function removeFileFromWhitelist($filename)
     {
+        if ($rewriteCallback = \PHPUnit_Util_Fileloader::getFilenameRewriteCallback()) {
+            $filename = $rewriteCallback($filename);
+        }
         $filename = realpath($filename);
 
         unset($this->whitelistedFiles[$filename]);
