@@ -190,6 +190,7 @@ final class CodeCoverage
      */
     public function getData(bool $raw = false): array
     {
+        // for example some changes here
         if (!$raw && $this->addUncoveredFilesFromWhitelist) {
             $this->addUncoveredFilesFromWhitelist();
         }
